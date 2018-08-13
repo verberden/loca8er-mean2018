@@ -14,12 +14,26 @@ var reviewSchema = new mongoose.Schema({
     createdOn: { type: Date, "default": Date.now },
 });
 
+var pointSchema = new mongoose.Schema({
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  });
+
 var locationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     address: String,
     rating: { type: Number, "default": 0, min: 0, max: 5 },
     facilities: [String],
-    coords: {type: [Number], index: '2dsphere'},
+    loc: pointSchema,
     openingTimes: [openingTimeSchema],
-    review: [reviewSchema]
+    reviews: [reviewSchema]
 });
+
+mongoose.model('Location', locationSchema);

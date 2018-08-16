@@ -5,10 +5,11 @@ var ctrlOthers = require('../controllers/others');
 
 /* GET Location pages. */
 router.get('/', ctrlLocations.homelist);
-router.get('/location', ctrlLocations.locationInfo);
-router.get('/location/review/new', 
+router.get('/location/:locationid', ctrlLocations.locationInfo);
+router.get('/location/:locationid/reviews/new', 
            ctrlLocations.addReview);
-
+router.post('/location/:locationid/reviews/new', 
+           ctrlLocations.doAddReview);
 /* GET Other pages. */
 router.get('/about', ctrlOthers.about);
 

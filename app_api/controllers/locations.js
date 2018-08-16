@@ -1,28 +1,12 @@
 var mongoose = require('mongoose');
 var Loc = mongoose.model('Location');
 
-var theEarth =(function(){
-
-    var getDistanceInKiloMeters = function(distance) {
-        return parseFloat(distance / 1000);
-    };
-
-    var getDistanceInMeters = function(distance) {
-        return parseFloat(distance * 1000);
-    };
-
-    return {
-        getDistanceInKiloMeters : getDistanceInKiloMeters,
-        getDistanceInMeters : getDistanceInMeters
-    };
-})();
-
 var _bildLocations = function (results) {
     var locations = [];
 
     results.forEach(doc => {
         locations.push({
-            distance: Math.round((theEarth.getDistanceInKiloMeters(doc.dist.calculated)*100)/100),
+            distance: doc.dist.calculated,
             name: doc.name,
             address: doc.address,
             rating: doc.rating,
@@ -142,7 +126,7 @@ module.exports.locationsListByDistance = function (req, res) {
         coordinates: [lng, lat]
     };
 
-    if (!lng||!lat) {
+    if ((!lng && lng !== 0) || (!lat && lat !== 0)) {
         sendJsonResponse(res, 404, { "message" : "Lng and lat parameters are required" });
         return;        
     }
@@ -152,7 +136,7 @@ module.exports.locationsListByDistance = function (req, res) {
             $geoNear: {
                 near: point,
                 distanceField: "dist.calculated",
-                maxDistance: theEarth.getDistanceInMeters(maxDistance),
+                maxDistance: maxDistance*1000,
                 includeLocs: "dist.location",
                 num: 10,
                 spherical: true

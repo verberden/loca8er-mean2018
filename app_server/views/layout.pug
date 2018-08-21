@@ -19,13 +19,21 @@ html(ng-app='loc8erApp')
             li
               a(href="/about/") About
     .container
-      block content
+      div(ng-view)
+        block content
       footer  
         .row
           .col-xs-12
             small &copy; SN 2018
     script(src='/angular/angular.min.js')
-    script(src='/angular/loc8erApp.js')
+    script(src='/lib/angular-route.min.js')
+    script(src='/angular/loc8er.min.js')
+    //-script(src='/app.js')
+    //-script(src='/home/home.controller.js')
+    //-script(src='/common/services/loc8erData.service.js')
+    //-script(src='/common/filters/formatDistance.filter.js')
+    //-script(src='/common/directives/ratingStars/ratingStars.directive.js')
+    //-script(src='/common/services/geolocation.service.js')
     script(src='/javascripts/vendors/jquery.min.js')
     script(src='/javascripts/vendors/bootstrap.min.js')
     script(src='/javascripts/validation.js')

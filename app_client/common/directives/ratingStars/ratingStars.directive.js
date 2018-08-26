@@ -7,7 +7,7 @@
         return {
             restrict: 'EA',
             scope: {
-                thisRating: '=rating'
+                thisRating: '=ratingNum'
             },
             templateUrl: '/common/directives/ratingStars/ratingStars.template.html'
         };

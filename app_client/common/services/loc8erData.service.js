@@ -9,8 +9,18 @@
             return $http.get('/api/locations?lng=' + lng + '&lat=' + lat + '&maxDistance=7000');
         };
 
+        var locationById = function(locationid) {
+            return $http.get('/api/locations/' + locationid);
+        }
+
+        var addReviewById = function(locationid, data) {
+            return $http.post('/api/locations/' + locationid + '/reviews', data);
+        }
+
         return {
-            locationByCoords: locationByCoords
+            locationByCoords: locationByCoords,
+            locationById: locationById,
+            addReviewById: addReviewById
         }
     }
 })();

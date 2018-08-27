@@ -3,10 +3,15 @@
         .module('loc8erApp')
         .controller('locationDetailCtrl', locationDetailCtrl)
 
-    locationDetailCtrl.$inject = ['$routeParams', '$modal', 'loc8erData'];
-    function locationDetailCtrl ($routeParams, $modal, loc8erData) {
+    locationDetailCtrl.$inject = ['$routeParams', '$location', '$modal', 'loc8erData', 'authentication'];
+    function locationDetailCtrl ($routeParams, $location, $modal, loc8erData, authentication) {
         var vm = this;
         vm.locationid = $routeParams.locationid;
+
+        vm.currentPath = $location.path();
+  
+        vm.isLoggedIn = authentication.isLoggedIn();
+        
         loc8erData.locationById(vm.locationid)
             .success(function(data) {
                 vm.data = { location: data };
